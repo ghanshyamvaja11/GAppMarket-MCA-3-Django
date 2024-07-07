@@ -1,0 +1,67 @@
+{% extends 'Administrator/base.html' %}
+{% block content %}
+<title>GAppMarket</title>
+<div class="container">
+    <h2 class="text-center mb-4">Contact Management</h2>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                        <th>Message</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for query in queries %}
+                    <tr>
+                        <td>{{ query.name }}</td>
+                        <td>{{ query.email }}</td>
+                        <td>{{ query.subject }}</td>
+                        <td>{{ query.message }}</td>
+                        <td>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#sendEmailModal{{ query.id }}">Send Email</button>
+                        </td>
+                    </tr>
+                    <!-- Modal -->
+                    <div class="modal fade" id="sendEmailModal{{ query.id }}" tabindex="-1" role="dialog" aria-labelledby="sendEmailModalLabel{{ query.id }}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="sendEmailModalLabel{{ query.id }}">Send Email to {{ query.name }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{% url 'Administrator:send_contact_query_email' query.id %}" method="POST">
+                                    <div class="modal-body">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label for="emailMessage{{ query.id }}">Message</label>
+                                            <textarea class="form-control" id="emailMessage{{ query.id }}" name="email_message" rows="5" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Send Email</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap CSS and JavaScript -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

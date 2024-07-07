@@ -1,0 +1,70 @@
+{% extends 'User/base.html' %}
+
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Browse Games</h2>
+            <form action="{% url 'User:browse_games' %}" method="GET" class="mb-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search Games" name="q" {% if search_query %}value="{{ search_query }}"{% endif %}>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Categories</h4>
+            <ul class="list-group">
+                {% for category in categories %}
+                    <li class="list-group-item">
+                        <a href="?category={{ category.id }}">{{ category.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <strong>Sort by:</strong>
+                    <select class="form-select" name="sort" onchange="this.form.submit()">
+                        <option value="title" {% if sort_option == 'title' %}selected{% endif %}>Title (A-Z)</option>
+                        <option value="-title" {% if sort_option == '-title' %}selected{% endif %}>Title (Z-A)</option>
+                        <option value="price" {% if sort_option == 'price' %}selected{% endif %}>Price (Low to High)</option>
+                        <option value="-price" {% if sort_option == '-price' %}selected{% endif %}>Price (High to Low)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                {% for game in games %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="{{ game.cover_image1.url }}" alt="{{ game.title }}" style="width: 20%; height: auto; max-height: 200px;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ game.title }}</h5>
+                                <p class="card-text">{{ game.description|truncatewords:20 }}</p>
+                                {% if game.id in purchased_games %}
+                                    <a href="{% url 'User:content_detail' content_type='game' content_id=game.id %}" class="btn btn-primary">View</a>
+                                {% else %}
+                                    {% if game.type == 'free' %}
+                                        <p>Free</p>
+                                        <a href="{% url 'User:content_detail' content_type='game' content_id=game.id %}" class="btn btn-primary">View</a>
+                                    {% else %}
+                                        <p>Price: ₹{{ game.price }}</p>
+                                        <a href="{% url 'User:process_purchase' content_type='game' content_id=game.id %}" class="btn btn-primary">Buy</a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

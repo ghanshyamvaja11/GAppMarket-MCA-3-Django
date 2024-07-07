@@ -1,0 +1,21 @@
+{% extends 'User/base.html' %}
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2>My Library</h2>
+    <div class="row">
+        {% for item in content_list %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ item.content.cover_image1.url }}" alt="{{ item.content.title }}" style="width: 20%; height: auto; max-height: 200px;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.content.title }}</h5>
+                        <p class="card-text">{{ item.content.description|truncatewords:20 }}</p>
+                        <a href="{% url 'User:content_detail' item.type item.content.id %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

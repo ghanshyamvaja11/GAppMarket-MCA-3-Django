@@ -1,0 +1,12 @@
+{% extends 'Administrator/base.html' %}
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2>Unblock Content - {{ content.title }}</h2>
+    <p>Are you sure you want to unblock "{{ content.title }}"?</p>
+    <form action="{% url 'Administrator:unblock_content' content.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Unblock</button>
+    </form>
+</div>
+{% endblock %}

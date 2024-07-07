@@ -1,0 +1,43 @@
+{% extends 'Publisher/base.html' %}
+
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2>Publisher Dashboard</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Content</h5>
+                    <p class="card-text">{{ total_content }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Sales</h5>
+                    <p class="card-text">{{ total_sales }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Reviews</h5>
+                    <p class="card-text">{{ total_reviews }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3>Recent Content</h3>
+    <div class="list-group">
+        {% for content in recent_content %}
+            <a href="{% url 'Publisher:publisher_my_content' %}" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">{{ content.title }}</h5>
+                <p class="mb-1">{{ content.description }}</p>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'Administrator/base.html' %}
+
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Administrator Dashboard</h2>
+    <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-white bg-primary h-100">
+                <div class="card-header text-center"><h4>Total Users</h4></div>
+                <div class="card-body text-center">
+                    <h1 class="card-title display-4">{{ total_users }}</h1>
+                    <p class="card-text">Number of registered users.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-white bg-success h-100">
+                <div class="card-header text-center"><h4>Total Publishers</h4></div>
+                <div class="card-body text-center">
+                    <h1 class="card-title display-4">{{ total_publishers }}</h1>
+                    <p class="card-text">Number of registered publishers.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-white bg-info h-100">
+                <div class="card-header text-center"><h4>Total Content</h4></div>
+                <div class="card-body text-center">
+                    <h1 class="card-title display-4">{{ total_content }}</h1>
+                    <p class="card-text">Total number of content items (apps, games, eBooks).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'Publisher/base.html' %}
+<title>GAppMarket</title>
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Edit Content - {{ content.title }}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ content.title }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="4" required>{{ content.description }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="logo" class="form-label">Logo</label>
+            <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
+            {% if content.logo %}
+            <p>Current Logo:</p>
+            <img src="{{ content.logo.url }}" alt="Current Logo" class="img-fluid">
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="cover_image1" class="form-label">Cover Image 1</label>
+            <input type="file" class="form-control" id="cover_image1" name="cover_image1" accept="image/*">
+            {% if content.cover_image1 %}
+            <p>Current Cover Image 1:</p>
+            <img src="{{ content.cover_image1.url }}" alt="Current Cover Image 1" class="img-fluid">
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="cover_image2" class="form-label">Cover Image 2</label>
+            <input type="file" class="form-control" id="cover_image2" name="cover_image2" accept="image/*">
+            {% if content.cover_image2 %}
+            <p>Current Cover Image 2:</p>
+            <img src="{{ content.cover_image2.url }}" alt="Current Cover Image 2" class="img-fluid">
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="cover_image3" class="form-label">Cover Image 3</label>
+            <input type="file" class="form-control" id="cover_image3" name="cover_image3" accept="image/*">
+            {% if content.cover_image3 %}
+            <p>Current Cover Image 3:</p>
+            <img src="{{ content.cover_image3.url }}" alt="Current Cover Image 3" class="img-fluid">
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="cover_image4" class="form-label">Cover Image 4</label>
+            <input type="file" class="form-control" id="cover_image4" name="cover_image4" accept="image/*">
+            {% if content.cover_image4 %}
+            <p>Current Cover Image 4:</p>
+            <img src="{{ content.cover_image4.url }}" alt="Current Cover Image 4" class="img-fluid">
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="apk_file" class="form-label">APK File</label>
+            <input type="file" class="form-control" id="apk_file" name="apk_file" accept=".apk">
+            {% if content.file_path %}
+            <p>Current APK File: <a href="{% url 'Publisher:content_download' content_type=content.content_type content_id=content.id %}" class="btn btn-primary">Download</a></p>
+            {% endif %}
+        </div>
+        {% if content.file_path %}
+        <div class="mb-3">
+            <label for="apk_version" class="form-label">APK Version</label>
+            <input type="text" class="form-control" id="apk_version" name="apk_version" value="{{ content.apk_version }}">
+        </div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Update Content</button>
+    </form>
+</div>
+{% endblock %}

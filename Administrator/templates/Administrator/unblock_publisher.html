@@ -1,0 +1,13 @@
+{% extends 'Administrator/base.html' %}
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2>Unblock Publisher</h2>
+    <p>Are you sure you want to unblock the publisher <strong>{{ publisher.username }}</strong>?</p>
+    <form method="post" action="{% url 'Administrator:unblock_publisher' publisher.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Unblock</button>
+        <a href="{% url 'Administrator:publisher_management' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

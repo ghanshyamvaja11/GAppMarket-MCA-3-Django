@@ -1,0 +1,13 @@
+{% extends 'Administrator/base.html' %}
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2>Delete Publisher</h2>
+    <p>Are you sure you want to delete the publisher <strong>{{ publisher.username }}</strong>?</p>
+    <form method="post" action="{% url 'Administrator:delete_publisher' publisher.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'Administrator:publisher_management' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

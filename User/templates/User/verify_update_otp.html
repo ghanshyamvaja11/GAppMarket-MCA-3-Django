@@ -1,0 +1,16 @@
+{% extends 'User/base.html' %}
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2>Verify Update OTP</h2>
+    <form method="POST" action="{% url 'User:verify_update_otp' %}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="{{ action }}">
+        <div class="mb-3">
+            <label for="id_otp" class="form-label">Enter OTP</label>
+            <input type="text" class="form-control" id="id_otp" name="otp" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Verify OTP</button>
+    </form>
+</div>
+{% endblock %}

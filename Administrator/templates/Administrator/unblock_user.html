@@ -1,0 +1,19 @@
+{% extends 'Administrator/base.html' %}
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Unblock User - {{ user.username }}</h2>
+        </div>
+        <div class="card-body">
+            <p>Are you sure you want to unblock this user?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Unblock</button>
+                <a href="{% url 'Administrator:user_management' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

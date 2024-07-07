@@ -1,0 +1,42 @@
+{% extends 'User/base.html' %}
+
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2>Submit a Review for {{ content.title }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="rating" class="form-label">Rating</label>
+            <select name="rating" id="rating" class="form-select" required>
+                <option value="" disabled selected>Select rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="text" class="form-label">Review Text</label>
+            <textarea name="text" id="text" rows="4" class="form-control" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+    
+    <hr>
+
+    <h3>Reviews</h3>
+    {% for review in reviews %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ review.user.username }} - {{ review.rating }} stars</h5>
+                <p class="card-text">{{ review.text }}</p>
+                <p class="card-text"><small class="text-muted">Reviewed on {{ review.created_at }}</small></p>
+            </div>
+        </div>
+    {% empty %}
+        <p>No reviews yet. Be the first to review this content!</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'Publisher/base.html' %}
+
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2>Publisher Reviews</h2>
+    {% if publisher_reviews %}
+    <div class="list-group">
+        {% for review in publisher_reviews %}
+        <div class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ review.title }}</h5>
+                <small>{{ review.timestamp }}</small>
+            </div>
+            <p class="mb-1">{{ review.content }}</p>
+            <small>Rating: {{ review.rating }}</small>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No reviews yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

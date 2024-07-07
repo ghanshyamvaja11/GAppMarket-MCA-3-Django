@@ -1,0 +1,15 @@
+{% extends 'Publisher/base.html' %}
+{% block title %}Delete Content - GAppMarket{% endblock %}
+
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2>Delete Content - {{ content.title }}</h2>
+    <p>Are you sure you want to delete "{{ content.title }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+        <a href="{% url 'Publisher:publisher_my_content' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

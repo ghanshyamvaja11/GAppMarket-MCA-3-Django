@@ -1,0 +1,125 @@
+{% extends 'Publisher/base.html' %}
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2>Upload New Content</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="logo" class="form-label">Logo</label>
+            <input type="file" class="form-control" id="logo" name="logo" accept="image/*" required onchange="previewImage(this, 'logo_preview')">
+            <div id="logo_preview" class="mt-2"></div>
+        </div>
+        <div class="mb-3">
+            <label for="cover_image1" class="form-label">Cover Image 1</label>
+            <input type="file" class="form-control" id="cover_image1" name="cover_image1" accept="image/*" required onchange="previewImage(this, 'cover_image1_preview')">
+            <div id="cover_image1_preview" class="mt-2"></div>
+        </div>
+        <div class="mb-3">
+            <label for="cover_image2" class="form-label">Cover Image 2</label>
+            <input type="file" class="form-control" id="cover_image2" name="cover_image2" accept="image/*" required onchange="previewImage(this, 'cover_image2_preview')">
+            <div id="cover_image2_preview" class="mt-2"></div>
+        </div>
+        <div class="mb-3">
+            <label for="cover_image3" class="form-label">Cover Image 3</label>
+            <input type="file" class="form-control" id="cover_image3" name="cover_image3" accept="image/*" required onchange="previewImage(this, 'cover_image3_preview')">
+            <div id="cover_image3_preview" class="mt-2"></div>
+        </div>
+        <div class="mb-3">
+            <label for="cover_image4" class="form-label">Cover Image 4</label>
+            <input type="file" class="form-control" id="cover_image4" name="cover_image4" accept="image/*" required onchange="previewImage(this, 'cover_image4_preview')">
+            <div id="cover_image4_preview" class="mt-2"></div>
+        </div>
+        <div class="mb-3">
+            <label for="content_type" class="form-label">Content Type</label>
+            <select class="form-select" id="content_type" name="content_type" required onchange="handleContentTypeChange()">
+                <option value="app">App</option>
+                <option value="game">Game</option>
+                <option value="ebook">eBook</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="type" class="form-label">Type</label>
+            <select class="form-select" id="type" name="type" required>
+                <option value="free" selected>Free</option>
+                <option value="paid">Paid</option>
+            </select>
+        </div>
+        <div class="mb-3" id="price_input" style="display: none;">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" placeholder="Enter price">
+        </div>
+        <div class="mb-3">
+            <label for="file" class="form-label">Application File</label>
+            <input type="file" class="form-control" id="file" name="file" required onchange="previewFile(this, 'file_preview')">
+            <div id="file_preview" class="mt-2"></div>
+        </div>
+        <div class="mb-3">
+            <label for="apk_version" class="form-label">APK Version</label>
+            <input type="text" class="form-control" id="apk_version" name="apk_version" placeholder="Enter APK Version">
+        </div>
+        <button type="submit" class="btn btn-primary">Upload Content</button>
+    </form>
+</div>
+
+<script>
+    // Function to preview image files
+    function previewImage(input, previewId) {
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var preview = document.getElementById(previewId);
+            preview.innerHTML = '<img src="' + e.target.result + '" class="img-fluid">';
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+    // Function to preview uploaded file
+    function previewFile(input, previewId) {
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var preview = document.getElementById(previewId);
+            preview.innerHTML = '<p>File uploaded: ' + file.name + '</p>';
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+    // Function to handle change in content type
+    function handleContentTypeChange() {
+        var contentType = document.getElementById('content_type').value;
+        var fileInput = document.getElementById('file');
+
+        // Set accept attribute based on content type
+        if (contentType === 'ebook') {
+            fileInput.setAttribute('accept', '.pdf,.epub,.mobi,.azw,.azw3,.djvu,.ibooks,.txt,.cbz,.cbr,.fb2,.lit,.pdb,.prc,.oxps,.xps'); // Additional eBook formats
+        } else {
+            fileInput.setAttribute('accept', '.apk'); // APK for App and Game
+        }
+    }
+
+    // Script to toggle price input based on content type selection
+    document.getElementById('type').addEventListener('change', function() {
+        var priceInput = document.getElementById('price_input');
+        if (this.value === 'paid') {
+            priceInput.style.display = 'block';
+            document.getElementById('price').required = true;
+        } else {
+            priceInput.style.display = 'none';
+            document.getElementById('price').required = false;
+        }
+    });
+</script>
+{% endblock %}

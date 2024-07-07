@@ -1,0 +1,58 @@
+{% extends 'User/base.html' %}
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2>Account Settings</h2>
+    <form method="POST" action="{% url 'User:account_settings' %}" id="accountSettingsForm">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="id_email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="id_email" name="email" value="{{ user.email }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="id_new_email" class="form-label">New Email address</label>
+            <input type="email" class="form-control" id="id_new_email" name="new_email">
+        </div>
+        <div class="mb-3">
+            <label for="id_new_password" class="form-label">New Password</label>
+            <input type="password" class="form-control" id="id_new_password" name="new_password">
+        </div>
+        <button type="submit" class="btn btn-primary" name="action" value="saveChanges">Save Changes</button>
+    </form>
+    <form method="POST" action="{% url 'User:account_settings' %}" id="deleteAccountForm" class="mt-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger" name="action" value="deleteAccount" onclick="return confirm('Are you sure you want to delete your account?')">Delete Account</button>
+    </form>
+</div>
+{% endblock %}
+
+{% comment %} {% extends 'User/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Account Settings</h2>
+    <form method="POST" action="{% url 'User:account_settings' %}" id="accountSettingsForm">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="id_email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="id_email" name="email" value="{{ user.email }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="id_new_email" class="form-label">New Email address</label>
+            <input type="email" class="form-control" id="id_new_email" name="new_email">
+        </div>
+        <div class="mb-3">
+            <label for="id_new_password" class="form-label">New Password</label>
+            <input type="password" class="form-control" id="id_new_password" name="new_password">
+        </div>
+        <button type="submit" class="btn btn-primary" name="action" value="saveChanges">Save Changes</button>
+    </form>
+</div>
+{% endblock %} {% endcomment %}

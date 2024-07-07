@@ -1,0 +1,23 @@
+{% extends 'Publisher/base.html' %}
+
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2>My Content</h2>
+    <div class="row">
+        {% for content in content_list %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{{ content.logo.url }}" class="card-img-top img-fluid rounded" style="width: 100%; height: auto; max-height: 200px;" alt="{{ content.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ content.title }}</h5>
+                    <p class="card-text">{{ content.description }}</p>
+                    <a href="{% url 'Publisher:publisher_edit_content' content.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'Publisher:publisher_delete_content' content.id %}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

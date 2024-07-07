@@ -1,0 +1,139 @@
+{% extends 'User/base.html' %}
+
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Browse Apps</h2>
+            <form action="{% url 'User:browse_apps' %}" method="GET" class="mb-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search Apps" name="q" {% if search_query %}value="{{ search_query }}"{% endif %}>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Categories</h4>
+            <ul class="list-group">
+                {% for category in categories %}
+                    <li class="list-group-item">
+                        <a href="?category={{ category.id }}">{{ category.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <strong>Sort by:</strong>
+                    <select class="form-select" name="sort" onchange="this.form.submit()">
+                        <option value="title" {% if sort_option == 'title' %}selected{% endif %}>Title (A-Z)</option>
+                        <option value="-title" {% if sort_option == '-title' %}selected{% endif %}>Title (Z-A)</option>
+                        <option value="price" {% if sort_option == 'price' %}selected{% endif %}>Price (Low to High)</option>
+                        <option value="-price" {% if sort_option == '-price' %}selected{% endif %}>Price (High to Low)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                {% for app in apps %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="{{ app.cover_image1.url }}" alt="{{ app.title }}" style="width: 20%; height: auto; max-height: 200px;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ app.title }}</h5>
+                                <p class="card-text">{{ app.description|truncatewords:20 }}</p>
+                                {% if app.id in purchased_apps %}
+                                    <a href="{% url 'User:content_detail' content_type='app' content_id=app.id %}" class="btn btn-primary">View</a>
+                                {% else %}
+                                    {% if app.type == 'free' %}
+                                        <p>Free</p>
+                                        <a href="{% url 'User:content_detail' content_type='app' content_id=app.id %}" class="btn btn-primary">View</a>
+                                    {% else %}
+                                        <p>Price: ₹{{ app.price }}</p>
+                                        <a href="{% url 'User:process_purchase' content_type='app' content_id=app.id %}" class="btn btn-primary">Buy</a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% comment %} {% extends 'User/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Browse Apps</h2>
+            <form action="{% url 'User:browse_apps' %}" method="GET" class="mb-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search Apps" name="q" {% if search_query %}value="{{ search_query }}"{% endif %}>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Categories</h4>
+            <ul class="list-group">
+                {% for category in categories %}
+                    <li class="list-group-item">
+                        <a href="?category={{ category.id }}">{{ category.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <strong>Sort by:</strong>
+                    <select class="form-select" name="sort" onchange="this.form.submit()">
+                        <option value="title" {% if sort_option == 'title' %}selected{% endif %}>Title (A-Z)</option>
+                        <option value="-title" {% if sort_option == '-title' %}selected{% endif %}>Title (Z-A)</option>
+                        <option value="price" {% if sort_option == 'price' %}selected{% endif %}>Price (Low to High)</option>
+                        <option value="-price" {% if sort_option == '-price' %}selected{% endif %}>Price (High to Low)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                {% for app in apps %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card" style="height: 100%;">
+                            <img src="{{ app.cover_image1.url }}" alt="{{ app.title }}" style="width: 20%; height: auto; max-height: 200px;">
+                        <div class="card-body p-2">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ app.title }}</h5>
+                                <p class="card-text flex-grow-1">{{ app.description|truncatewords:20 }}</p>
+                                {% if app.id in purchased_apps %}
+                                    <a href="{% url 'User:content_detail' content_type='app' content_id=app.id %}" class="btn btn-primary">View</a>
+                                {% else %}
+                                    {% if app.type == 'free' %}
+                                        <p>Free</p>
+                                        <a href="{% url 'User:content_detail' content_type='app' content_id=app.id %}" class="btn btn-primary">View</a>
+                                    {% else %}
+                                        <p>Price: ₹{{ app.price }}</p>
+                                        <a href="{% url 'User:process_purchase' content_type='app' content_id=app.id %}" class="btn btn-primary">Buy</a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% endcomment %}

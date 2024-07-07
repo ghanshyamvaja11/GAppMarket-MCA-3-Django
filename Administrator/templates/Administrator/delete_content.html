@@ -1,0 +1,12 @@
+{% extends 'Administrator/base.html' %}
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <h2>Delete Content - {{ content.title }}</h2>
+    <p>Are you sure you want to delete "{{ content.title }}"?</p>
+    <form action="{% url 'Administrator:delete_content' content.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</div>
+{% endblock %}

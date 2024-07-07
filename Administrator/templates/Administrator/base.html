@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GAppMarket</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
+    <!-- Custom Styles -->
+    <style>
+        /* Your existing styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .navbar-brand { 
+            font-weight: bold; 
+            font-size: 1.5rem;
+        }
+        .navbar-nav .nav-link {
+            color: #fff !important;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #cccccc !important;
+        }
+        .footer { 
+            background: #343a40; 
+            color: #ffffff; 
+            padding: 40px 0; 
+        }
+        .footer a { 
+            color: #ffffff; 
+            text-decoration: none; 
+        }
+        .footer a:hover { 
+            color: #007bff; 
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'Administrator:admin_home' %}">GAppMarket Admin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                     {% if user.is_authenticated and request.session.UserType == 'Administrator' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Administrator:admin_home' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Administrator:user_management' %}">User Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Administrator:publisher_management' %}">Publisher Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Administrator:content_management' %}">Content Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Administrator:contact_management' %}">Contact Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Administrator:admin_announcements' %}">Announcements</a>
+                    </li>
+                    {% comment %} <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Administrator:admin_support_management' %}">Support Management</a>
+                    </li> {% endcomment %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Administrator:account_settings' %}">Account Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Administrator:logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Home:home' %}">Home</a>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 80px;">
+        {% block content %}{% endblock %}
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>GAppMarket Admin</h5>
+                    <p>Administer your digital content marketplace with ease. Manage users, publishers, content, and more.</p>
+                </div>
+                 {% if user.is_authenticated and request.session.UserType == 'Administrator' %}
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'Administrator:admin_home' %}">Dashboard</a></li>
+                        <li><a href="{% url 'Administrator:user_management' %}">User Management</a></li>
+                        <li><a href="{% url 'Administrator:publisher_management' %}">Publisher Management</a></li>
+                        <li><a href="{% url 'Administrator:content_management' %}">Content Management</a></li>
+                        <li><a href="{% url 'Administrator:contact_management' %}">Contact Management</a></li>
+                        <li><a href="{% url 'Administrator:admin_announcements' %}">Announcements</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: gappmarketstore@gmail.com</li>
+                        <li>Phone: +91 81600 75626</li>
+                        <li>Address: GAppMarket, Deda, Gujarat</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p>&copy; 2024 GAppMarket. All rights reserved.</p>
+                <p><a href="'/admin_privacy_policy">Privacy Policy</a> | <a href="/admin_terms_of_service">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+     <script>
+        // window.onload = function() {
+        //     var userType = '{{ request.session.UserType }}'; 
+ //
+        //     if (userType != "Administrator") {
+        //         window.location.href = "{% url 'Administrator:admin_login' %}";
+        //     }
+        // };
+    </script>
+</body>
+</html>

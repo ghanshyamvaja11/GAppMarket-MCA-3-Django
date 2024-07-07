@@ -1,0 +1,117 @@
+{% extends 'User/base.html' %}
+
+{% block content %}
+<title>GAppMarket</title>
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-4 text-center">
+            <img src="{{ content.logo.url }}" alt="Logo" class="img-fluid rounded" style="max-width: 100%; max-height: 200px;">
+        </div>
+        <div class="col-md-8">
+            <h2 class="text-center">{{ content.title }}</h2>
+            <p>{{ content.description }}</p>
+        </div>
+    </div>
+    
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="scrollable-container">
+                <div class="scroll-wrapper">
+                    <img src="{{ content.cover_image1.url }}" alt="Cover Image 1" class="img-fluid scrollable-item">
+                    <img src="{{ content.cover_image2.url }}" alt="Cover Image 2" class="img-fluid scrollable-item">
+                    <img src="{{ content.cover_image3.url }}" alt="Cover Image 3" class="img-fluid scrollable-item">
+                    <img src="{{ content.cover_image4.url }}" alt="Cover Image 4" class="img-fluid scrollable-item">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-3">
+        <div class="col-md-12">
+            {% if content.type == 'free' %}
+                <a href="{% url 'User:content_download' content_type=content_type content_id=content.id %}" class="btn btn-primary">Download</a>
+            {% else %}
+                {% if purchased %}
+                    <a href="{% url 'User:content_download' content_type=content_type content_id=content.id %}" class="btn btn-primary">Download</a>
+                {% else %}
+                    <p>Price: ₹{{ content.price }}</p>
+                    <a href="{% url 'User:process_purchase' content_type=content_type content_id=content.id %}" class="btn btn-primary">Purchase</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    
+    <a href="{% url 'User:review_submit' content.id %}" class="btn btn-success mt-3">Write a Review</a>
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h4>Reviews</h4>
+            {% if reviews %}
+    {% for review in reviews %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ review.user.username }} - {{ review.rating }} stars</h5>
+                <p class="card-text">{{ review.text }}</p>
+                <p class="card-text"><small class="text-muted">Reviewed on {{ review.created_at }}</small></p>
+            </div>
+        </div>
+                {% endfor %}
+            {% else %}
+                <p>No reviews yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    // JavaScript for scrolling functionality
+    const scrollWrapper = document.querySelector('.scroll-wrapper');
+    let isScrolling = false;
+
+    scrollWrapper.addEventListener('mousedown', (e) => {
+        isScrolling = true;
+        startX = e.pageX - scrollWrapper.offsetLeft;
+        scrollWrapper.style.cursor = 'grabbing';
+    });
+
+    scrollWrapper.addEventListener('mousemove', (e) => {
+        if (!isScrolling) return;
+        e.preventDefault();
+        const x = e.pageX - scrollWrapper.offsetLeft;
+        const walk = (x - startX) * 1.5; // Adjust the speed of scrolling
+
+        scrollWrapper.scrollLeft = scrollWrapper.scrollLeft - walk;
+    });
+
+    scrollWrapper.addEventListener('mouseup', () => {
+        isScrolling = false;
+        scrollWrapper.style.cursor = 'grab';
+    });
+
+    scrollWrapper.addEventListener('mouseleave', () => {
+        isScrolling = false;
+        scrollWrapper.style.cursor = 'grab';
+    });
+</script>
+
+<style>
+    .scrollable-container {
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch; /* Enables smooth scrolling on iOS */
+        margin-bottom: 15px;
+    }
+
+    .scroll-wrapper {
+        display: flex;
+        cursor: grab;
+    }
+
+    .scrollable-item {
+        flex: 0 0 auto;
+        width: 200px; /* Adjust as needed */
+        height: auto;
+        margin-right: 10px; /* Adjust spacing between images */
+    }
+</style>
+{% endblock %}

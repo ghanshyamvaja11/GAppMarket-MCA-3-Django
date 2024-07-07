@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GAppMarket - Mobile Apps, Games, and eBooks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
+    <style>
+        /* Your existing styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        /* Ensure navbar doesn't overlap content */
+        :target:before { 
+            display: block; 
+            content: " "; 
+            margin-top: -83px; 
+            height: 83px; 
+            visibility: hidden; 
+            pointer-events: none; 
+        }
+        .navbar-brand { 
+            font-weight: bold; 
+            font-size: 1.5rem;
+        }
+        .navbar-nav .nav-link {
+            color: #fff !important;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #cccccc !important;
+        }
+        .card {
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .footer { 
+            background: #343a40; 
+            color: #ffffff; 
+            padding: 40px 0; 
+        }
+        .footer a { 
+            color: #ffffff; 
+            text-decoration: none; 
+        }
+        .footer a:hover { 
+            color: #007bff; 
+        }
+        .auth-section { 
+            margin-top: 60px; 
+            text-align: center; /* Center align the content */
+        }
+        .jumbotron { 
+            background-size: cover; 
+            color: #fff; 
+            padding: 100px 30px; 
+            border-radius: 12px;
+        }
+        .jumbotron h1, .jumbotron p {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .carousel-item img { 
+            height: 400px; 
+            object-fit: cover; 
+            border-radius: 12px;
+        }
+        .btn-primary { 
+            background-color: #007bff; 
+            border-color: #007bff; 
+            border-radius: 50px;
+            padding: 10px 30px;
+        }
+        .btn-primary:hover { 
+            background-color: #0056b3; 
+            border-color: #004085; 
+        }
+        .nav-link:hover { 
+            color: #0056b3; 
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .card-text {
+            font-size: 0.9rem;
+        }
+        .auth-section .form-control {
+            border-radius: 50px;
+            padding: 20px;
+            font-size: 1rem;
+        }
+        .auth-section .btn {
+            border-radius: 50px;
+            padding: 10px 30px;
+        }
+        .content-section {
+            padding: 60px 0;
+        }
+        .content-section h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .content-section form {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .content-section form .form-control {
+            border-radius: 50px;
+            padding: 20px;
+            font-size: 1rem;
+        }
+        .content-section form .btn {
+            border-radius: 50px;
+            padding: 10px 30px;
+        }
+        /* Styling for Auth Section headings */
+        .auth-section h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #000; /* Ensure color matches other headings */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">GAppMarket</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#apps">Apps</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#games">Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ebooks">eBooks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#signup">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aboutus">AboutUs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="jumbotron text-center" id="home" style="background-color: #007bff; color: #fff;">
+        <h1 class="display-4">Welcome to GAppMarket</h1>
+        <p class="lead">Your one-stop marketplace for Android mobile apps, games, and eBooks.</p>
+        <hr class="my-4">
+        <p>Explore the latest and greatest in digital content, curated by authorized publishers.</p>
+        <a class="btn btn-primary btn-lg" href="#apps" role="button" style="background-color: #ffffff; color: #007bff;" onmouseover="this.style.backgroundColor='#007bff'; this.style.color='#ffffff';" onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#007bff';">Get Started</a>
+    </div>
+    
+    <!-- Featured Sections -->
+<div class="container content-section" id="apps">
+    <h2 class="text-center">Featured Apps</h2>
+    <div class="row flex-nowrap overflow-auto">
+        {% for app in featured_apps %}
+        <div class="col-md-4" style="flex: 0 0 auto; max-width: 250px;">
+            <div class="card" style="width: 100%; height: auto;">
+                <img src="{{ app.logo.url }}" class="card-img-top" alt="{{ app.title }}" style="width: 100%; height: 150px; object-fit: contain;">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 1rem;">{{ app.title }}</h5>
+                    <p class="card-text" style="font-size: 0.85rem;">{{ app.description }}</p>
+                    <a href="{% url 'User:content_download' content_type='app' content_id=app.id %}" class="btn btn-primary" style="font-size: 0.85rem;">Download</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container content-section" id="games">
+    <h2 class="text-center">Featured Games</h2>
+    <div class="row flex-nowrap overflow-auto">
+        {% for game in featured_games %}
+        <div class="col-md-4" style="flex: 0 0 auto; max-width: 250px;">
+            <div class="card" style="width: 100%; height: auto;">
+                <img src="{{ game.logo.url }}" class="card-img-top" alt="{{ game.title }}" style="width: 100%; height: 150px; object-fit: contain;">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 1rem;">{{ game.title }}</h5>
+                    <p class="card-text" style="font-size: 0.85rem;">{{ game.description }}</p>
+                    <a href="{% url 'User:content_download' content_type='game' content_id=game.id %}" class="btn btn-primary" style="font-size: 0.85rem;">Play Now</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container content-section" id="ebooks">
+    <h2 class="text-center">Featured eBooks</h2>
+    <div class="row flex-nowrap overflow-auto">
+        {% for ebook in featured_ebooks %}
+        <div class="col-md-4" style="flex: 0 0 auto; max-width: 250px;">
+            <div class="card" style="width: 100%; height: auto;">
+                <img src="{{ ebook.logo.url }}" class="card-img-top" alt="{{ ebook.title }}" style="width: 100%; height: 150px; object-fit: contain;">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 1rem;">{{ ebook.title }}</h5>
+                    <p class="card-text" style="font-size: 0.85rem;">{{ ebook.description }}</p>
+                    <a href="{% url 'User:content_download' content_type='ebook' content_id=ebook.id %}" class="btn btn-primary" style="font-size: 0.85rem;">Download</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+    <!-- Signup and Login Sections -->
+    <div class="container content-section" id="signup">
+        <h2 class="text-center">Sign Up</h2>
+        <div class="col-md-6 offset-md-3">
+                <div class="d-flex justify-content-between mb-3">
+                    <a href="/user/signup/" class="btn btn-primary flex-fill mx-1">Sign Up as User</a>
+                    <a href="/publisher/signup/" class="btn btn-primary flex-fill mx-1">Sign Up as Publisher</a>
+                </div>
+            </div>
+    </div>
+
+     <div class="container content-section" id="login">
+        <h2 class="text-center">Login</h2>
+        <div class="col-md-6 offset-md-3">
+                <div class="d-flex justify-content-between mb-3">
+                    <a href="/user/login/" class="btn btn-primary flex-fill mx-1">Login as User</a>
+                    <a href="/publisher/login/" class="btn btn-primary flex-fill mx-1">Login as Publisher</a>
+                    <a href="/administrator/login/" class="btn btn-primary flex-fill mx-1">Login as Administrator</a>
+                </div>
+            </div>
+    </div>
+
+    <!-- Contact Us Section -->
+    <div class="container content-section" id="contact">
+        <h2 class="text-center mb-4">Contact Us</h2>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form action="{% url 'Home:contact' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="contactName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="contactName" name="contactName" placeholder="Enter your name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="contactEmail" name="contactEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactSubject" class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="contactSubject" name="contactSubject" placeholder="Enter the subject" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactMessage" class="form-label">Message</label>
+                        <textarea class="form-control" id="contactMessage" name="contactMessage" rows="4" placeholder="Enter your message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>GAppMarket</h5>
+                    <p>Your one-stop marketplace for mobile apps, games, and eBooks. Explore the latest and greatest in digital content, curated by authorized publishers.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#apps">Apps</a></li>
+                        <li><a href="#games">Games</a></li>
+                        <li><a href="#ebooks">eBooks</a></li>
+                        <li><a href="#signup">Sign Up</a></li>
+                        <li><a href="#login">Login</a></li>
+                        <li><a href="/aboutus">AboutUs</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: gappmarketstore@gmail.com</li>
+                        <li>Phone: +91 81600 75626</li>
+                        <li>Address: GAppMarket, Deda, Gujarat</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p>&copy; 2024 GAppMarket. All rights reserved.</p>
+                <p><a href="/privacypolicy">Privacy Policy</a> | <a href="/termsofservice">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Smooth scrolling using jQuery
+        $(document).ready(function () {
+            // Add smooth scrolling to all links
+            $("a").on('click', function (event) {
+                // Make sure this.hash has a value before overriding default behavior
+                if (this.hash !== "") {
+                    // Prevent default anchor click behavior
+                    event.preventDefault();
+
+                    // Store hash
+                    var hash = this.hash;
+
+                    // Using jQuery's animate() method to add smooth page scroll
+                    // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function () {
+                        // Add hash (#) to URL when done scrolling (default click behavior)
+                        window.location.hash = hash;
+                    });
+                } // End if
+            });
+
+            // Auto-close navbar after clicking on a link
+            $(".navbar-nav .nav-link").on("click", function() {
+                $(".navbar-collapse").collapse("hide");
+            });
+        });
+
+        $(document).ready(function () {
+    // Close navbar after clicking on a link in mobile view
+    $(".navbar-nav .nav-link").on("click", function() {
+        if ($(window).width() < 992) { // Check if viewport is in mobile size
+            $(".navbar-toggler").click(); // Simulate a click on the navbar-toggler button to close the menu
+        }
+    });
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!-- Administrator/admin_announcements.html -->
+{% extends 'Administrator/base.html' %}
+<title>GAppMarket</title>
+{% block content %}
+<div class="container mt-5">
+    <h2>Send Announcements</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" class="form-control" id="subject" name="subject" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="send_to_publishers" name="send_to_publishers">
+            <label class="form-check-label" for="send_to_publishers">Send to Publishers</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="send_to_users" name="send_to_users">
+            <label class="form-check-label" for="send_to_users">Send to Users</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Announcement</button>
+    </form>
+
+    <!-- Display announcements -->
+    <div class="mt-5">
+        <h3>Recent Announcements</h3>
+        <ul class="list-group">
+            {% for announcement in announcements %}
+            <li class="list-group-item">
+                <h5>{{ announcement.title }}</h5>
+                <p>{{ announcement.message }}</p>
+                <small>Sent on {{ announcement.created_at }}</small>
+            </li>
+            {% empty %}
+            <li class="list-group-item">No announcements yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<!-- CSS for Checkbox Highlighting -->
+<style>
+    .form-check-input:checked + .form-check-label {
+        font-weight: bold;
+        color: #007bff; /* Bootstrap primary color */
+    }
+</style>
+{% endblock %}
