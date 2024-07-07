@@ -8,8 +8,8 @@
             <img src="{{ content.logo.url }}" alt="Logo" class="img-fluid rounded" style="max-width: 100%; max-height: 200px;">
         </div>
         <div class="col-md-8">
-            <h2 class="text-center">{{ content.title }}</h2>
-            <p>{{ content.description }}</p>
+            <h2 class="text-center">Name : {{ content.title }}</h2>
+            <p>Description : {{ content.description }}</p>
         </div>
     </div>
     
@@ -47,14 +47,14 @@
         <div class="col-md-12">
             <h4>Reviews</h4>
             {% if reviews %}
-    {% for review in reviews %}
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">{{ review.user.username }} - {{ review.rating }} stars</h5>
-                <p class="card-text">{{ review.text }}</p>
-                <p class="card-text"><small class="text-muted">Reviewed on {{ review.created_at }}</small></p>
-            </div>
-        </div>
+                {% for review in reviews %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ review.user.username }} - {{ review.rating }} stars</h5>
+                            <p class="card-text">{{ review.text }}</p>
+                            <p class="card-text"><small class="text-muted">Reviewed on {{ review.created_at }}</small></p>
+                        </div>
+                    </div>
                 {% endfor %}
             {% else %}
                 <p>No reviews yet.</p>
