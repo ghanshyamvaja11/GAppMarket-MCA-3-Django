@@ -2,7 +2,6 @@
 
 {% block content %}
 <title>GAppMarket</title>
-<title>GAppMarket</title>
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-4 mb-4">
@@ -37,22 +36,27 @@
         </div>
     </div>
 
-   <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12">
-            <h4>Recent Content</h4>
-            <div class="card-columns">
-                {% for content in recent_content %}
-                    <div class="card">
-                        <img src="{{ content.logo.url }}" class="card-img-top" alt="{{ content.title }}" style="max-height: 300px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ content.title }}</h5>
-                            <p class="card-text">{{ content.description }}</p>
-                            <a href="{% url 'Publisher:publisher_edit_content' content.id %}" class="btn btn-primary btn-sm">Edit</a>
-                            <a href="{% url 'Publisher:publisher_delete_content' content.id %}" class="btn btn-danger btn-sm">Delete</a>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Recent Content</h4>
+                <div class="card-columns">
+                    {% for content in recent_content %}
+                        <div class="card">
+                            <img src="{{ content.logo.url }}" class="card-img-top" alt="{{ content.title }}" style="max-height: 300px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ content.title }}</h5>
+                                <p class="card-text">{{ content.description }}</p>
+                                {% if content.status == 'Blocked' %}
+                                    <p class="text-danger">Blocked</p>
+                                {% else %}
+                                    <a href="{% url 'Publisher:publisher_edit_content' content.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                {% endif %}
+                                <a href="{% url 'Publisher:publisher_delete_content' content.id %}" class="btn btn-danger btn-sm">Delete</a>
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

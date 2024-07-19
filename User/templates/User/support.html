@@ -1,0 +1,39 @@
+{% extends 'User/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Support</h2>
+
+    <!-- Support Ticket Submission Form -->
+    <form method="POST" action="{% url 'User:support' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_subject" class="form-label">Subject</label>
+            <input type="text" class="form-control" id="id_subject" name="subject" required>
+        </div>
+        <div class="mb-3">
+            <label for="id_message" class="form-label">Message</label>
+            <textarea class="form-control" id="id_message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Ticket</button>
+    </form>
+
+    <hr>
+
+    <!-- Display Submitted Tickets -->
+    <h3>Submitted Tickets</h3>
+    {% if user_tickets %}
+        <ul class="list-group">
+            {% for ticket in user_tickets %}
+                <li class="list-group-item">
+                    <h4>{{ ticket.subject }}</h4>
+                    <p>{{ ticket.message }}</p>
+                    <p>Status: {{ ticket.status }}</p>
+                    <small>Created at: {{ ticket.created_at }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tickets submitted.</p>
+    {% endif %}
+</div>
+{% endblock %}

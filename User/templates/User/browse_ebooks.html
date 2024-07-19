@@ -41,12 +41,14 @@
 
             <div class="row">
                 {% for ebook in ebooks %}
+                {% if ebook.status != 'Blocked' %}
                     <div class="col-md-4 mb-4">
                         <div class="card">
                             <img src="{{ ebook.cover_image1.url }}" alt="{{ ebook.title }}" style="width: 20%; height: auto; max-height: 200px;">
                             <div class="card-body">
                                 <h5 class="card-title">{{ ebook.title }}</h5>
                                 <p class="card-text">{{ ebook.description|truncatewords:20 }}</p>
+                                <p class="card-text">{{ ebook.apk_version }}</p>
                                 {% if ebook.id in purchased_ebooks %}
                                     <a href="{% url 'User:content_detail' content_type='ebook' content_id=ebook.id %}" class="btn btn-primary">View</a>
                                 {% else %}
@@ -61,6 +63,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

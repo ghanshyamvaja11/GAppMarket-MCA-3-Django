@@ -39,6 +39,16 @@ def user_home(request):
     featured_apps = apps[:3]
     featured_games = games[:3]
     featured_ebooks = ebooks[:3]
+
+    # Check purchase status for apps, games, and ebooks
+    for app in featured_apps:
+        app.purchased = Purchase.objects.filter(user=request.user, app_id=app.id).exists() if app.type == 'paid' else True
+    
+    for game in featured_games:
+        game.purchased = Purchase.objects.filter(user=request.user, game_id=game.id).exists() if game.type == 'paid' else True
+    
+    for ebook in featured_ebooks:
+        ebook.purchased = Purchase.objects.filter(user=request.user, ebook_id=ebook.id).exists() if ebook.type == 'paid' else True
     
     context = {
         'user': request.user,
@@ -292,6 +302,8 @@ def content_detail(request, content_type, content_id):
         raise Http404("Content type does not exist")
 
     content = get_object_or_404(model, id=content_id)
+    if content.status == 'Blocked':
+        return render(request, 'User:user_home')
 
     # Check if the user has purchased the content
     if content_type == 'app':
@@ -359,6 +371,9 @@ def content_download(request, content_type, content_id):
 
     # Fetch the content object
     content = get_object_or_404(model, id=content_id)
+
+    if content.status != 'Blocked':
+        return redirect('User:user_home')
 
     # Construct the full file path
     file_path = os.path.join(settings.MEDIA_ROOT, content.file_path)

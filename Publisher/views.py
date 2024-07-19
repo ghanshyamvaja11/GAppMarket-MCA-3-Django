@@ -305,32 +305,63 @@ def publisher_edit_content(request, content_id):
         content.title = request.POST.get('title')
         content.description = request.POST.get('description')
         
-        # Handle logo, cover images, and APK file
+        # Handle logo and cover images
         if request.FILES.get('logo'):
+            if content.logo and hasattr(content.logo, 'path') and os.path.isfile(content.logo.path):
+                os.remove(content.logo.path)
             content.logo = request.FILES['logo']
         if request.FILES.get('cover_image1'):
+            if content.cover_image1 and hasattr(content.cover_image1, 'path') and os.path.isfile(content.cover_image1.path):
+                os.remove(content.cover_image1.path)
             content.cover_image1 = request.FILES['cover_image1']
         if request.FILES.get('cover_image2'):
+            if content.cover_image2 and hasattr(content.cover_image2, 'path') and os.path.isfile(content.cover_image2.path):
+                os.remove(content.cover_image2.path)
             content.cover_image2 = request.FILES['cover_image2']
         if request.FILES.get('cover_image3'):
+            if content.cover_image3 and hasattr(content.cover_image3, 'path') and os.path.isfile(content.cover_image3.path):
+                os.remove(content.cover_image3.path)
             content.cover_image3 = request.FILES['cover_image3']
         if request.FILES.get('cover_image4'):
+            if content.cover_image4 and hasattr(content.cover_image4, 'path') and os.path.isfile(content.cover_image4.path):
+                os.remove(content.cover_image4.path)
             content.cover_image4 = request.FILES['cover_image4']
-        if request.FILES.get('apk_file'):
-            content.apk_file = request.FILES['apk_file']
-            content.apk_version = request.POST.get('apk_version')  # Assuming 'apk_version' is the name of the input field
+        
+        # Handle file uploads and version/edition fields based on content type
+        if content.content_type == 'app':
+            if request.FILES.get('apk_file'):
+                if content.file_path and os.path.isfile(os.path.join(settings.MEDIA_ROOT, content.file_path)):
+                    os.remove(os.path.join(settings.MEDIA_ROOT, content.file_path))
+                content.apk_file = request.FILES['apk_file']
+                content.file_path = request.FILES['apk_file'].name
+                content.apk_version = request.POST.get('apk_version')
+        elif content.content_type == 'game':
+            if request.FILES.get('game_apk_file'):
+                if content.file_path and os.path.isfile(os.path.join(settings.MEDIA_ROOT, content.file_path)):
+                    os.remove(os.path.join(settings.MEDIA_ROOT, content.file_path))
+                content.game_apk_file = request.FILES['game_apk_file']
+                content.file_path = request.FILES['game_apk_file'].name
+                content.apk_version = request.POST.get('apk_version')
+        elif content.content_type == 'ebook':
+            if request.FILES.get('ebook_file'):
+                if content.file_path and os.path.isfile(os.path.join(settings.MEDIA_ROOT, content.file_path)):
+                    os.remove(os.path.join(settings.MEDIA_ROOT, content.file_path))
+                content.ebook_file = request.FILES['ebook_file']
+                content.file_path = request.FILES['ebook_file'].name
+                content.edition = request.POST.get('edition')
         
         # Save the updated content
         content.save()
         
         # Redirect to the content list view
-        return redirect('Publisher:publisher_my_content')  # Ensure 'publisher' namespace is correct
+        return redirect('Publisher:publisher_my_content')
        
     context = {
         'content': content,
     }
     
     return render(request, 'Publisher/publisher_edit_content.html', context)
+
 
 @login_required(login_url='/publisher/login')
 def content_download(request, content_type, content_id):
@@ -365,6 +396,21 @@ def publisher_delete_content(request, content_id):
     content = get_object_or_404(Content, id=content_id)
     
     if request.method == 'POST':
+        # Delete associated files
+        if content.logo and hasattr(content.logo, 'path') and os.path.isfile(content.logo.path):
+            os.remove(content.logo.path)
+        if content.cover_image1 and hasattr(content.cover_image1, 'path') and os.path.isfile(content.cover_image1.path):
+            os.remove(content.cover_image1.path)
+        if content.cover_image2 and hasattr(content.cover_image2, 'path') and os.path.isfile(content.cover_image2.path):
+            os.remove(content.cover_image2.path)
+        if content.cover_image3 and hasattr(content.cover_image3, 'path') and os.path.isfile(content.cover_image3.path):
+            os.remove(content.cover_image3.path)
+        if content.cover_image4 and hasattr(content.cover_image4, 'path') and os.path.isfile(content.cover_image4.path):
+            os.remove(content.cover_image4.path)
+        if content.file_path and os.path.isfile(content.file_path):
+            os.remove(content.file_path)
+        
+        # Delete content
         content.delete()
         return redirect('Publisher:publisher_my_content')
     
@@ -389,19 +435,19 @@ def publisher_upload(request):
         file_path = request.FILES['file']
         apk_version = request.POST.get('apk_version')
         
-        # Save the file and get the path
+        # Save the file with its original name
         fs = FileSystemStorage()
-        file_name = fs.save(file_path.name, file_path)
-        file_url = fs.url(file_name)
+        original_file_name = file_path.name
+        saved_file_name = fs.save(original_file_name, file_path)
+        file_url = fs.url(saved_file_name)
+        
+        # Use the original file name for storage
+        file_path = original_file_name
         
         # Handle price
         price = None
         if content_status == 'paid':
             price = request.POST['price']
-        
-        # Remove '/media/' from file_path for storage
-        if file_url.startswith('/media/'):
-            file_path = file_url[7:]  # Remove '/media/' part
         
         # Create content object
         content = None

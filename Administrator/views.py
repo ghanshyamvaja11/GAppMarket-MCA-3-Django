@@ -396,6 +396,25 @@ def unblock_content(request, content_id):
         return redirect('Administrator:content_management')
     return render(request, 'Administrator/unblock_content.html', {'content': content})
 
+def delete_media_files(content):
+    media_files = [
+        content.logo,
+        content.cover_image1,
+        content.cover_image2,
+        content.cover_image3,
+        content.cover_image4,
+    ]
+    
+    for media_file in media_files:
+        if media_file and hasattr(media_file, 'path') and os.path.isfile(media_file.path):
+            os.remove(media_file.path)
+    
+    # Handle file_path separately since it's a CharField
+    if content.file_path:
+        file_path = os.path.join(settings.MEDIA_ROOT, content.file_path)
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+
 @login_required(login_url='/administrator/login')
 def delete_content(request, content_id):
     content = get_object_or_404(Content, id=content_id)

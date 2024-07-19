@@ -54,6 +54,8 @@
             <img src="{{ content.cover_image4.url }}" alt="Current Cover Image 4" class="img-fluid">
             {% endif %}
         </div>
+
+        {% if content.content_type == 'app' %}
         <div class="mb-3">
             <label for="apk_file" class="form-label">APK File</label>
             <input type="file" class="form-control" id="apk_file" name="apk_file" accept=".apk">
@@ -61,12 +63,36 @@
             <p>Current APK File: <a href="{% url 'Publisher:content_download' content_type=content.content_type content_id=content.id %}" class="btn btn-primary">Download</a></p>
             {% endif %}
         </div>
-        {% if content.file_path %}
         <div class="mb-3">
             <label for="apk_version" class="form-label">APK Version</label>
             <input type="text" class="form-control" id="apk_version" name="apk_version" value="{{ content.apk_version }}">
         </div>
+        {% elif content.content_type == 'game' %}
+        <div class="mb-3">
+            <label for="game_apk_file" class="form-label">Game APK File</label>
+            <input type="file" class="form-control" id="game_apk_file" name="game_apk_file" accept=".apk">
+            {% if content.file_path %}
+            <p>Current Game APK File: <a href="{% url 'Publisher:content_download' content_type=content.content_type content_id=content.id %}" class="btn btn-primary">Download</a></p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="apk_version" class="form-label">Game APK Version</label>
+            <input type="text" class="form-control" id="apk_version" name="apk_version" value="{{ content.apk_version }}">
+        </div>
+        {% elif content.content_type == 'ebook' %}
+        <div class="mb-3">
+            <label for="ebook_file" class="form-label">eBook File</label>
+            <input type="file" class="form-control" id="ebook_file" name="ebook_file" accept=".epub, .pdf">
+            {% if content.file_path %}
+            <p>Current eBook File: <a href="{% url 'Publisher:content_download' content_type=content.content_type content_id=content.id %}" class="btn btn-primary">Download</a></p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="edition" class="form-label">Edition</label>
+            <input type="text" class="form-control" id="edition" name="edition" value="{{ content.apk_version }}">
+        </div>
         {% endif %}
+        
         <button type="submit" class="btn btn-primary">Update Content</button>
     </form>
 </div>

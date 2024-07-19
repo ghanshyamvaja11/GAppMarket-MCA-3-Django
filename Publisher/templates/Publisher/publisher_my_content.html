@@ -12,7 +12,11 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ content.title }}</h5>
                     <p class="card-text">{{ content.description }}</p>
-                    <a href="{% url 'Publisher:publisher_edit_content' content.id %}" class="btn btn-primary">Edit</a>
+                    {% if content.status == 'Blocked' %}
+                        <p class="text-danger">Blocked</p>
+                    {% else %}
+                        <a href="{% url 'Publisher:publisher_edit_content' content.id %}" class="btn btn-primary btn-sm">Edit</a>
+                     {% endif %}
                     <a href="{% url 'Publisher:publisher_delete_content' content.id %}" class="btn btn-danger">Delete</a>
                 </div>
             </div>

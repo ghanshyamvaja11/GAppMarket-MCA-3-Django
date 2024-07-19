@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GAppMarket - Contact Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .navbar-brand { 
+            font-weight: bold; 
+            font-size: 1.5rem;
+        }
+        .navbar-nav .nav-link {
+            color: #fff !important;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #cccccc !important;
+        }
+        .content-section {
+            margin-top: 60px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .footer { 
+            background: #343a40; 
+            color: #ffffff; 
+            padding: 40px 0; 
+        }
+        .footer a { 
+            color: #ffffff; 
+            text-decoration: none; 
+        }
+        .footer a:hover { 
+            color: #007bff; 
+        }
+        .jumbotron {
+            background-color: #007bff;
+            color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .btn-primary { 
+            background-color: #007bff; 
+            border-color: #007bff; 
+            border-radius: 50px;
+            padding: 10px 30px;
+        }
+        .btn-primary:hover { 
+            background-color: #0056b3; 
+            border-color: #004085; 
+        }
+        .nav-link:hover { 
+            color: #0056b3; 
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .card-text {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'Home:home' %}">GAppMarket</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#apps">Apps</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#games">Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ebooks">eBooks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#signup">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Us Content -->
+    <div class="container content-section" id="contact">
+        <h2 class="text-center mb-4">Contact Us</h2>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form action="{% url 'Home:contact' %}" method="POST">
+                    <div class="mb-3">
+                        <label for="contactName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="contactName" name="contactName" placeholder="Enter your name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="contactEmail" name="contactEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactSubject" class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="contactSubject" name="contactSubject" placeholder="Enter the subject" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactMessage" class="form-label">Message</label>
+                        <textarea class="form-control" id="contactMessage" name="contactMessage" rows="4" placeholder="Enter your message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <div class="text-center mt-4">
+            <h5>Or reach us at:</h5>
+            <p>Email: support@gappmarket.com</p>
+            <p>Phone: +91 81600 75626</p>
+            <p>Address: 123 GAppMarket St, Deda, Gujarat</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>GAppMarket</h5>
+                    <p>Your one-stop marketplace for mobile apps, games, and eBooks. Explore the latest and greatest in digital content, curated by authorized publishers.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#apps">Apps</a></li>
+                        <li><a href="#games">Games</a></li>
+                        <li><a href="#ebooks">eBooks</a></li>
+                        <li><a href="#signup">Sign Up</a></li>
+                        <li><a href="#login">Login</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: gappmarketstore@gmail.com</li>
+                        <li>Phone: +91 81600 75626</li>
+                        <li>Address: GAppMarket, Deda, Gujarat</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p>&copy; 2024 GAppMarket. All rights reserved.</p>
+                <p><a href="/privacypolicy">Privacy Policy</a> | <a href="/termsofservice">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

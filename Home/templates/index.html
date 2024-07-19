@@ -181,6 +181,7 @@
     <h2 class="text-center">Featured Apps</h2>
     <div class="row flex-nowrap overflow-auto">
         {% for app in featured_apps %}
+        {% if app.status != 'Blocked' %}
         <div class="col-md-4" style="flex: 0 0 auto; max-width: 250px;">
             <div class="card" style="width: 100%; height: auto;">
                 <img src="{{ app.logo.url }}" class="card-img-top" alt="{{ app.title }}" style="width: 100%; height: 150px; object-fit: contain;">
@@ -191,6 +192,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         {% endfor %}
     </div>
 </div>
@@ -199,6 +201,7 @@
     <h2 class="text-center">Featured Games</h2>
     <div class="row flex-nowrap overflow-auto">
         {% for game in featured_games %}
+        {% if game.status != 'Blocked' %}
         <div class="col-md-4" style="flex: 0 0 auto; max-width: 250px;">
             <div class="card" style="width: 100%; height: auto;">
                 <img src="{{ game.logo.url }}" class="card-img-top" alt="{{ game.title }}" style="width: 100%; height: 150px; object-fit: contain;">
@@ -209,6 +212,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         {% endfor %}
     </div>
 </div>
@@ -217,6 +221,7 @@
     <h2 class="text-center">Featured eBooks</h2>
     <div class="row flex-nowrap overflow-auto">
         {% for ebook in featured_ebooks %}
+        {% if ebook.status != 'Blocked' %}
         <div class="col-md-4" style="flex: 0 0 auto; max-width: 250px;">
             <div class="card" style="width: 100%; height: auto;">
                 <img src="{{ ebook.logo.url }}" class="card-img-top" alt="{{ ebook.title }}" style="width: 100%; height: 150px; object-fit: contain;">
@@ -227,6 +232,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         {% endfor %}
     </div>
 </div>
@@ -236,8 +242,8 @@
         <h2 class="text-center">Sign Up</h2>
         <div class="col-md-6 offset-md-3">
                 <div class="d-flex justify-content-between mb-3">
-                    <a href="/user/signup/" class="btn btn-primary flex-fill mx-1">Sign Up as User</a>
-                    <a href="/publisher/signup/" class="btn btn-primary flex-fill mx-1">Sign Up as Publisher</a>
+                    <a href="/user/signup/" class="btn btn-primary flex-fill mx-1">User</a>
+                    <a href="/publisher/signup/" class="btn btn-primary flex-fill mx-1">Publisher</a>
                 </div>
             </div>
     </div>
@@ -246,9 +252,9 @@
         <h2 class="text-center">Login</h2>
         <div class="col-md-6 offset-md-3">
                 <div class="d-flex justify-content-between mb-3">
-                    <a href="/user/login/" class="btn btn-primary flex-fill mx-1">Login as User</a>
-                    <a href="/publisher/login/" class="btn btn-primary flex-fill mx-1">Login as Publisher</a>
-                    <a href="/administrator/login/" class="btn btn-primary flex-fill mx-1">Login as Administrator</a>
+                    <a href="/user/login/" class="btn btn-primary flex-fill mx-1">User</a>
+                    <a href="/publisher/login/" class="btn btn-primary flex-fill mx-1">Publisher</a>
+                    <a href="/administrator/login/" class="btn btn-primary flex-fill mx-1">Admin</a>
                 </div>
             </div>
     </div>

@@ -58,12 +58,12 @@
             <input type="number" class="form-control" id="price" name="price" placeholder="Enter price">
         </div>
         <div class="mb-3">
-            <label for="file" class="form-label">Application File</label>
+            <label for="file" class="form-label" id="file_label">Application File</label>
             <input type="file" class="form-control" id="file" name="file" required onchange="previewFile(this, 'file_preview')">
             <div id="file_preview" class="mt-2"></div>
         </div>
-        <div class="mb-3">
-            <label for="apk_version" class="form-label">APK Version</label>
+        <div class="mb-3" id="version_input">
+            <label for="apk_version" class="form-label" id="version_label">APK Version</label>
             <input type="text" class="form-control" id="apk_version" name="apk_version" placeholder="Enter APK Version">
         </div>
         <button type="submit" class="btn btn-primary">Upload Content</button>
@@ -101,12 +101,28 @@
     function handleContentTypeChange() {
         var contentType = document.getElementById('content_type').value;
         var fileInput = document.getElementById('file');
+        var fileLabel = document.getElementById('file_label');
+        var versionInput = document.getElementById('version_input');
+        var versionLabel = document.getElementById('version_label');
 
-        // Set accept attribute based on content type
         if (contentType === 'ebook') {
-            fileInput.setAttribute('accept', '.pdf,.epub,.mobi,.azw,.azw3,.djvu,.ibooks,.txt,.cbz,.cbr,.fb2,.lit,.pdb,.prc,.oxps,.xps'); // Additional eBook formats
+            fileInput.setAttribute('accept', '.pdf,.epub,.mobi,.azw,.azw3,.djvu,.ibooks,.txt,.cbz,.cbr,.fb2,.lit,.pdb,.prc,.oxps,.xps');
+            fileLabel.innerText = 'eBook File';
+            versionLabel.innerText = 'eBook Version';
+            versionInput.style.display = 'none';
+            document.getElementById('apk_version').required = false;
+        } else if (contentType === 'game') {
+            fileInput.setAttribute('accept', '.apk');
+            fileLabel.innerText = 'Game APK File';
+            versionLabel.innerText = 'Game Version';
+            versionInput.style.display = 'block';
+            document.getElementById('apk_version').required = true;
         } else {
-            fileInput.setAttribute('accept', '.apk'); // APK for App and Game
+            fileInput.setAttribute('accept', '.apk');
+            fileLabel.innerText = 'Application File';
+            versionLabel.innerText = 'APK Version';
+            versionInput.style.display = 'block';
+            document.getElementById('apk_version').required = true;
         }
     }
 
@@ -121,5 +137,8 @@
             document.getElementById('price').required = false;
         }
     });
+
+    // Initial call to handle content type change
+    handleContentTypeChange();
 </script>
 {% endblock %}
