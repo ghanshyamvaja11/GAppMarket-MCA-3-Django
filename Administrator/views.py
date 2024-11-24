@@ -101,7 +101,7 @@ def login_with_otp(request):
             return render(request, 'Administrator/login_with_otp.html', {'error_message': 'No administrator found with this email.'})
         
         otp = generate_otp()
-        send_otp_email(email, otp)
+        send_otp_email(email, otp, 'login with OTP')
         request.session['login_email'] = email
         request.session['login_otp'] = otp
         return redirect('Administrator:admin_verify_login_otp')
@@ -133,7 +133,7 @@ def forgot_password(request):
             return render(request, 'Administrator/forgot_password.html', {'error_message': 'No administrator found with this email.'})
         
         otp = generate_otp()
-        send_otp_email(email, otp)
+        send_otp_email(email, otp, 'forgot password')
         request.session['reset_email'] = email
         request.session['reset_otp'] = otp
         return redirect('Administrator:admin_verify_otp')
