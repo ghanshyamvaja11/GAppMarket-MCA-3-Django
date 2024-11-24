@@ -147,7 +147,7 @@ def forgot_password(request):
         send_otp_email(email, otp, 'Password Reset')
         request.session['reset_email'] = email
         request.session['reset_otp'] = otp
-        return redirect('Publisher:verify_otp')
+        return redirect('Publisher: publisher_verify_otp')
     else:
         return render(request, 'Publisher/forgot_password.html')
 
